@@ -7,10 +7,16 @@ def read_text():
 	check_profanity(content)
 	
 def check_profanity(text):
-	connection = urllib.request.urlopen("http://www.wdylike.appspot.com/?q=shot")
+	connection = urllib.request.urlopen("http://www.wdylike.appspot.com/?q="+ urllib.request.quote(text))
 	output = connection.read()
 	print(output)
 	connection.close()
+	if 'false' in output:
+		print("no")
+	elif 'true' in output:
+		print("yes")
+	else:
+		print("can not do")
 	
 	
 read_text()
