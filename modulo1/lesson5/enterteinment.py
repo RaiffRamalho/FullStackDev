@@ -19,7 +19,9 @@ fast = media.Movie("fast and furious",
 						"https://www.youtube.com/watch?v=4bEMXlQXiS0")
 
 #fast.show_trailer()
+#movies = [toy_story, avatar, fast]
+#fresh_tomatoes.open_movies_page(movies)
 
-movies = [toy_story, avatar, fast]
-
-fresh_tomatoes.open_movies_page(movies)
+print(media.Movie.__doc__)
+print(media.Movie.__name__)
+print(media.Movie.__module__)
