@@ -1,0 +1,61 @@
+.my-header{
+    color: #2d3c49;
+    font-family: 'Courier New', Courier, monospace;
+    
+}
+
+.my-body {
+    margin-left: 2%;
+}
+
+.udacity-image {
+    width: 8em;
+    margin-left: 2%;
+}
+
+.div-image {
+    width:96%;
+    margin-left: 2%;
+}
+
+.cover-image {
+    width: 100%;
+}
+
+.header-text {
+    float: right;
+    margin-right: 2%;
+}
+.header-text-name{
+    margin: 0;
+    font-size: 2em;
+}
+
+.header-text-job{
+    margin: 0;
+    float: right;
+    font-size: 1.1em;
+}
+
+.hr-line, .simple-text{
+    color: #7d97ad;
+}
+
+.simple-text{
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.grid-container {
+    display: flex;
+    justify-content: center;
+}
+
+.section-space {
+    width: 33%;
+    text-align: center;
+}
+
+.image-session {
+    width: 100%;
+    height: 50%;
+}
