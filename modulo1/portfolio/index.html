@@ -3,13 +3,18 @@
 <html>
 <head>
         <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, user-scalable=no">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" type="text/css" href="css/main.css">
+        <link rel="stylesheet" media="screen and (max-width:500px)" href="css/less500.css">
+        <link rel="stylesheet" media="screen and (max-width:800px)" href="css/less800.css">
+        <link rel="stylesheet" media="screen and (min-width:801px)" href="css/main.css">
 </head>
 
 <body>
     <header class="my-header">
-        <img src="img/Udacity_logo.png" class="udacity-image">
+        <div class="div-image-logo">
+            <img src="img/Udacity_logo.png" class="udacity-image">
+        </div>
         <div class="header-text">
             <p class="header-text-name">
                 RAIFF RAMALHO DE MELLO
@@ -26,23 +31,23 @@
         <img src="img/cover-image.png" class="cover-image">
     </div>
 
-    <p class="simple-text"><font size="6" >Featured Work</font></p>
+    <p class="simple-text">Featured Work</p>
 
     <div id="divContainer" class="grid-container simple-text">
         <section id="sectionOne" class="section-space">
             <img src="img/angular.png" class="image-session">
-            <p ><font size="6" >ANGULAR</font></p>
-            <p><a href="https://angular.io/">https://goo.gl/HCxaJG</a></p>
+            <p >ANGULAR</p>
+            <p><a href="https://angular.io/" class="links">https://goo.gl/HCxaJG</a></p>
         </section>
         <section id="sectionTwo" class="section-space">
             <img src="img/dojo.png" class="image-session">
-            <p><font size="6" >DOJO</font></p>
-            <p><a href="https://dojotoolkit.org/">https://goo.gl/JDhmYh</a></p>
+            <p>DOJO</p>
+            <p><a href="https://dojotoolkit.org/" class="links">https://goo.gl/JDhmYh</a></p>
         </section>
         <section id="sectionthree" class="section-space">
             <img src="img/react.png" class="image-session">
-            <p><font size="6">REACT</font></p>
-            <p><a href="https://reactjs.org/">https://goo.gl/JRpksa</a></p>
+            <p>REACT</p>
+            <p><a href="https://reactjs.org/" class="links">https://goo.gl/JRpksa</a></p>
         </section>
     </div>
 

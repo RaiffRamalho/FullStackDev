@@ -1,0 +1,31 @@
+body{
+    width: 230px;
+}
+.udacity-image {
+    width: 100%;
+}
+
+.header-text {
+    width: 70%;
+    margin-top: 10px;
+}
+
+.header-text-name{
+    margin: 0;
+    font-size: .6em;
+    float: right;
+}
+
+.header-text-job{
+    margin: 0;
+    float: right;
+    font-size: .3em;
+}
+
+.simple-text{
+    font-size: .6em !important;
+}
+
+.links{
+    font-size: .35em;
+}
