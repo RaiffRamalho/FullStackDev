@@ -5,19 +5,22 @@ body{
     width: 100%;
 }
 
+.div-image-logo{
+    width: 40%;
+}
+
 .header-text {
-    width: 70%;
+    width: 60%;
     margin-top: 10px;
-    margin-right: 15px;
+    margin-right: 40px;
+    margin-left: 0;
 }
 
 .header-text-name{
-    font-size: 3em;
-    float: right;
+    font-size: 2.5em;
 }
 
 .header-text-job{
-    float: right;
     font-size: 1.4em;
 }
 

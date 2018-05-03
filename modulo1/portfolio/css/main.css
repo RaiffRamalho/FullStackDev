@@ -17,9 +17,11 @@
 }
 
 .header-text {
-    width: 70%;
-    margin-top: 6%;
-    margin-right: 1%;
+    width: 50%;
+    margin-top: 4%;
+    margin-right: 3%;
+    margin-left: 25%;
+    
 }
 .header-text-name{
     font-size: 2em;
