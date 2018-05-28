@@ -16,12 +16,11 @@ db = psycopg2.connect("dbname=news")
 
 # print ("---------------------------")
 # logs = db.cursor()
-# logs.execute("select * from log limit 2;")    
+# logs.execute("select * from log limit 12;")    
 # var3 = logs.fetchall()
 # for element in var3:
 #     print element
 # print ("---------------------------")
-
 
 print ("QUESTION1")
 print ("---------------------------")
@@ -56,5 +55,34 @@ quest2.execute("select name, totalViews from authors, authorPopularNum "+
 var6 = quest2.fetchall()
 for element in var6:
     print element
+
+print ("---------------------------")
+print ("QUESTION 3")
+print ("---------------------------")
+logs = db.cursor()
+logs.execute("create view errors as select time::date from log where status like 40||'%';")    
+logs.execute("create view success as select time::date from log where status like 20||'%';")    
+# logs.execute("select time::date from log where status like 40||'%' limit 200;")    
+# var7 = logs.fetchall()
+logs.execute("create view successCounted as select time::date, count(*) as countin from success group by time;")
+# logs.execute("select time from successCounted;")     
+# var8 = logs.fetchall()
+# for element in var8:
+#     print element
+# print ("---------------------------")
+logs.execute("create view errorsCounted as select time::date, count(*) as countin from errors group by time;")
+# logs.execute("select time from errorsCounted;")    
+# var9 = logs.fetchall()
+# for element in var9:
+#     print element
+# print ("---------------------------")
+logs.execute("select successCounted.time, successCounted.countin, errorsCounted.countin from successCounted, errorsCounted "+
+"where successCounted.time = errorsCounted.time;")    
+var10 = logs.fetchall()
+for element in var10:
+    if element[2] > (element[1] * 0.1):
+        print element
+print ("---------------------------")
+
 
 db.close()
