@@ -1,26 +1,24 @@
 #!/usr/bin/env python3
 
 import psycopg2
-try:
-    db = psycopg2.connect("dbname=news")
-except psycopg2.DatabaseError:
-    print(psycopg2.DatabaseError)
+db = psycopg2.connect("dbname=news")
 
 print("QUESTION1")
 print("---------------------------")
 
 quest1 = db.cursor()
 quest1.execute(
-    "select title , count(*) from articles, log where log.path =  " +
-    "concat('/article/', articles.slug) group by title order by count desc limit 3;"
+    "select title , count(*) from articles, log where log.path " +
+    "like '%'||articles.slug group by title order by count desc limit 3;"
 )
-list_one = quest1.fetchall()
-for element in list_one:
+var4 = quest1.fetchall()
+for element in var4:
     print(element[0] + " - " + str(element[1]))
 
 print("---------------------------")
 print("QUESTION 2")
 print("---------------------------")
+
 
 quest2 = db.cursor()
 quest2.execute(
@@ -45,8 +43,8 @@ quest2.execute(
     "select name, totalViews from authors, authorPopularNum " +
     "where authors.id = authorPopularNum.author order by totalViews desc;"
 )
-list_two = quest2.fetchall()
-for element in list_two:
+var6 = quest2.fetchall()
+for element in var6:
     print(element[0] + " - " + str(element[1]))
 
 print("---------------------------")
@@ -87,10 +85,10 @@ logs.execute(
     "errorsCounted.countin from successCounted, errorsCounted " +
     "where successCounted.time = errorsCounted.time;"
 )
-list_three = logs.fetchall()
-for element in list_three:
-    if element[2] > (element[1] * 0.01):
-        print(str(element[0]) + " , " + str("%.2f" % (float(element[2])/float(element[1]) * 100))+' % errors')
+var10 = logs.fetchall()
+for element in var10:
+    if element[2] > (element[1] * 0.1):
+        print(element)
 print("---------------------------")
 
 db.close()

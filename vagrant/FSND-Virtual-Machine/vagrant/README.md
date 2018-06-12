@@ -4,7 +4,8 @@ This is the modules 3  first project of udacity course of Fullstack Developer
 
 ## Prerequisites
 
-Python 2.7 installed in the machine and the set up described in the project specification
+* Set up described in the project specification
+* Python 2.7 installed in the machine
 
 ## How to run
 
