@@ -12,4 +12,10 @@ The user need to have Python 3.0.6 intalled in his machine
 
 ### Runing the Project
 
+With the terminal:
+
+* Clone the directory
+* Navigate to the directory cd project1
+* Run python entertainment_center.py
+
 Run the comand line : Python entertainment_center.py
