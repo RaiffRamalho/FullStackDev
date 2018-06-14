@@ -88,3 +88,5 @@ The file logProj.py need to be inside the vagrant folder. Execute the comand
 ```
 python logProj.py
 ```
+
+* There is No view on this project
