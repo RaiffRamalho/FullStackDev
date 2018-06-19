@@ -1,6 +1,4 @@
-body{
-    width: 1150px;
-}
+
 .udacity-image {
     width: 100%;
 }
@@ -17,11 +15,13 @@ body{
 }
 
 .header-text-name{
-    font-size: 2.5em;
+    font-size: 1.5em;
+    float: right;
 }
 
 .header-text-job{
     font-size: 1.4em;
+    float: right;
 }
 
 .simple-text{

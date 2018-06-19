@@ -1,3 +1,6 @@
+body {
+    max-width: 98%;
+}
 
 .my-header{
     color: #2d3c49;
@@ -24,7 +27,7 @@
     
 }
 .header-text-name{
-    font-size: 2em;
+    font-size: 1.7em;
     float: right;
 }
 

@@ -1,6 +1,4 @@
-html, body{
-    width: 500px;
-}
+
 .udacity-image {
     width: 100%;
 }
@@ -29,5 +27,5 @@ html, body{
 }
 
 .links{
-    font-size: .6em;
+    font-size: 1em;
 }
