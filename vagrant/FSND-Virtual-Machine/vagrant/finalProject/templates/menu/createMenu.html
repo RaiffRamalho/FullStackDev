@@ -2,7 +2,20 @@
 
 <body>
     <h1>
-        create menu
+        New Menu
     </h1>
+
+	<div >
+		<form action="{{ url_for('createMenu', restaurant_id=restaurant_id)}}" method = 'post'>
+		<dl>
+			<dt>Name:</dt>
+                <dd><input type ='text' size='30' name='name'></dd>
+            <dt>Description:</dt>
+                <dd><textarea name = 'description' rows='5' cols='40' > </textarea></dd> 
+		</dl>
+		<input type='submit' value='Create'>
+
+		</form>
+	</div>
 </body>
 </html>
