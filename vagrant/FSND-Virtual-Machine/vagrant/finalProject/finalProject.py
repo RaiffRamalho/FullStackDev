@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, jsonify
+from flask import Flask, render_template, request, redirect, url_for, jsonify, flash
 
 app = Flask(__name__)
 
@@ -24,6 +24,26 @@ items = [ {'name':'Cheese Pizza', 'description':'made with fresh cheese', 'price
         {'name':'Spinach Dip', 'description':'creamy dip with fresh spinach','price':'$1.99', 'course':'Appetizer','id':'5'} ]
 item =  {'name':'Cheese Pizza','description':'made with fresh cheese','price':'$5.99','course' :'Entree', 'id': '6'}
 
+
+@app.route('/restaurants/JSON')
+def restaurantJSON():
+    # get restaurants on db
+    #falta o serialize
+    return jsonify(restaurants)
+
+@app.route('/restaurants/<int:restaurant_id>/menus/JSON')
+def restaurantMenuJSON(restaurant_id):
+    # get menus form restaurant on db
+    # falta o serialize
+    return jsonify(menus)
+
+# ADD JSON ENDPOINT HERE
+@app.route('/restaurants/<int:restaurant_id>/menus/<int:menu_id>/items/JSON')
+def menuItemJSON(restaurant_id, menu_id):
+    # get items from menu on db
+    # falta o serialize
+    return jsonify(items)
+
 @app.route('/')
 @app.route('/restaurants/')
 def showRestaurants():
@@ -33,6 +53,7 @@ def showRestaurants():
 @app.route('/restaurants/new/', methods=['GET', 'POST'])
 def newRestaurant():
     if request.method == 'POST':
+        flash('New Restaurant Created')
         return redirect(url_for('showRestaurants'))
     return render_template('restaurant/createRestaurant.html')
 
@@ -40,6 +61,7 @@ def newRestaurant():
 def editRestaurant(restaurant_id, methods=['GET', 'POST']):
     #pegar restaurant do bd
     if request.method == 'POST':
+        flash('Restaurant Edited')
         return redirect(url_for('showRestaurants'))
 
     # return render_template('restaurant/editRestaurant.html', restaurant= restauranteToEdit)
@@ -49,6 +71,7 @@ def editRestaurant(restaurant_id, methods=['GET', 'POST']):
 def deleteRestaurant(restaurant_id):
     #pegar restaruante do bd
     if request.method == 'POST':
+        flash('Restaurant deleted')
         return redirect(url_for('showRestaurants'))
 
     #return render_template('deleteRestaurant.html', restaurant=restaurantToDelete)
@@ -64,6 +87,7 @@ def showMenus(restaurant_id):
 def createMenu(restaurant_id):
     #pegar o restaurante do bd
     if request.method == 'POST':
+        flash('New Menu Created')
         return redirect(url_for('showMenus', restaurant_id=restaurant_id))
     return render_template('menu/createMenu.html/', restaurant_id=restaurant_id)
 
@@ -71,6 +95,7 @@ def createMenu(restaurant_id):
 def editMenu(restaurant_id, menu_id):
     # pegar o menu do restaurante do bd menuToEdit
     if request.method == 'POST':
+        flash('Menu Edited')
         return redirect(url_for('showMenus', restaurant_id=restaurant_id))
 
     #return render_template('menu.html', restaurant_id=restaurant_id, menu=menuToEdit)
@@ -80,6 +105,7 @@ def editMenu(restaurant_id, menu_id):
 def deleteMenu(restaurant_id, menu_id):
     # pegar o menu do restaurante do bd
     if request.method == 'POST':
+        flash('Menu Deleted')
         return redirect(url_for('showMenus', restaurant_id=restaurant_id))
 
     #return render_template('menu/deleteMenu.html', menu=menuToDelete)
@@ -95,6 +121,7 @@ def showMenu(restaurant_id, menu_id):
 @app.route('/restaurants/<int:restaurant_id>/menu/<int:menu_id>/item/new',  methods=['GET', 'POST'])
 def createItem(restaurant_id,menu_id):
     if request.method == 'POST':
+        flash('New Item Created')
         return redirect(url_for('showMenu', restaurant_id=restaurant_id, menu_id=menu_id))
     return render_template('item/createItem.html/', restaurant_id=restaurant_id, menu_id=menu_id)
 
@@ -102,6 +129,7 @@ def createItem(restaurant_id,menu_id):
 def editItem(restaurant_id,menu_id, item_id):
     #pegar o item do menu do bd
     if request.method == 'POST':
+        flash('Item edited')
         return redirect(url_for('showMenu', restaurant_id=restaurant_id, menu_id=menu_id))
 
     # return render_template('item/editItem.html/', restaurant_id=restaurant_id, menu_id=menu_id, item=itemToEdit)
@@ -111,6 +139,7 @@ def editItem(restaurant_id,menu_id, item_id):
 def deleteItem(restaurant_id, menu_id, item_id):
     #pegar o item do menu do bd
     if request.method == 'POST':
+        flash('Item deleted')
         return redirect(url_for('showMenu', restaurant_id=restaurant_id, menu_id=menu_id))
 
     #return render_template('item/deleteItem.html/', restaurant_id=restaurant_id, menu_id=menu_id, item=itemToDelete)
@@ -118,5 +147,6 @@ def deleteItem(restaurant_id, menu_id, item_id):
 
 
 if __name__ == '__main__':
+    app.secret_key = 'super_secre_key'
     app.debug = True
     app.run(host='0.0.0.0', port=5000)
