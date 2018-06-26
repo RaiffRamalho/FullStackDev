@@ -22,7 +22,7 @@ items = [ {'name':'Cheese Pizza', 'description':'made with fresh cheese', 'price
         {'name':'Caesar Salad', 'description':'with fresh organic vegetables','price':'$5.99', 'course':'Entree','id':'3'},
         {'name':'Iced Tea', 'description':'with lemon','price':'$.99', 'course':'Beverage','id':'4'},
         {'name':'Spinach Dip', 'description':'creamy dip with fresh spinach','price':'$1.99', 'course':'Appetizer','id':'5'} ]
-item =  {'name':'Cheese Pizza','description':'made with fresh cheese','price':'$5.99','course' :'Entree'}
+item =  {'name':'Cheese Pizza','description':'made with fresh cheese','price':'$5.99','course' :'Entree', 'id': '6'}
 
 @app.route('/')
 @app.route('/restaurants/')
@@ -38,16 +38,18 @@ def newRestaurant():
 
 @app.route('/restaurants/<int:restaurant_id>/edit/',  methods=['GET', 'POST'])
 def editRestaurant(restaurant_id, methods=['GET', 'POST']):
-    print("x")
     #pegar restaurant do bd
+    if request.method == 'POST':
+        return redirect(url_for('showRestaurants'))
 
     # return render_template('restaurant/editRestaurant.html', restaurant= restauranteToEdit)
     return render_template('restaurant/editRestaurant.html', restaurant = restaurant)
 
-
 @app.route('/restaurants/<int:restaurant_id>/delete/',  methods=['GET', 'POST'])
 def deleteRestaurant(restaurant_id):
     #pegar restaruante do bd
+    if request.method == 'POST':
+        return redirect(url_for('showRestaurants'))
 
     #return render_template('deleteRestaurant.html', restaurant=restaurantToDelete)
     return render_template('restaurant/deleteRestaurant.html', restaurant = restaurant)
@@ -61,7 +63,6 @@ def showMenus(restaurant_id):
 @app.route('/restaurants/<int:restaurant_id>/menu/new',  methods=['GET', 'POST'])
 def createMenu(restaurant_id):
     #pegar o restaurante do bd
-    print("x")
     if request.method == 'POST':
         return redirect(url_for('showMenus', restaurant_id=restaurant_id))
     return render_template('menu/createMenu.html/', restaurant_id=restaurant_id)
@@ -69,13 +70,17 @@ def createMenu(restaurant_id):
 @app.route('/restaurants/<int:restaurant_id>/menu/<int:menu_id>/edit/',  methods=['GET', 'POST'])
 def editMenu(restaurant_id, menu_id):
     # pegar o menu do restaurante do bd menuToEdit
+    if request.method == 'POST':
+        return redirect(url_for('showMenus', restaurant_id=restaurant_id))
 
     #return render_template('menu.html', restaurant_id=restaurant_id, menu=menuToEdit)
     return render_template('menu/editMenu.html/', restaurant_id=restaurant_id, menu=menu)
 
 @app.route('/restaurants/<int:restaurant_id>/menu/<int:menu_id>/delete/',  methods=['GET', 'POST'])
 def deleteMenu(restaurant_id, menu_id):
-    # pegar o menu do restaurante do bd 
+    # pegar o menu do restaurante do bd
+    if request.method == 'POST':
+        return redirect(url_for('showMenus', restaurant_id=restaurant_id))
 
     #return render_template('menu/deleteMenu.html', menu=menuToDelete)
     return render_template('menu/deleteMenu.html/', restaurant_id=restaurant_id, menu=menu)
@@ -96,6 +101,8 @@ def createItem(restaurant_id,menu_id):
 @app.route('/restaurants/<int:restaurant_id>/menu/<int:menu_id>/item/<int:item_id>/edit/',  methods=['GET', 'POST'])
 def editItem(restaurant_id,menu_id, item_id):
     #pegar o item do menu do bd
+    if request.method == 'POST':
+        return redirect(url_for('showMenu', restaurant_id=restaurant_id, menu_id=menu_id))
 
     # return render_template('item/editItem.html/', restaurant_id=restaurant_id, menu_id=menu_id, item=itemToEdit)
     return render_template('item/editItem.html/' , restaurant_id=restaurant_id, menu_id=menu_id, item=item)
@@ -103,9 +110,11 @@ def editItem(restaurant_id,menu_id, item_id):
 @app.route('/restaurants/<int:restaurant_id>/menu<int:menu_id>/item/<int:item_id>/delete/',  methods=['GET', 'POST'])
 def deleteItem(restaurant_id, menu_id, item_id):
     #pegar o item do menu do bd
+    if request.method == 'POST':
+        return redirect(url_for('showMenu', restaurant_id=restaurant_id, menu_id=menu_id))
 
-    # return render_template('item/deleteItem.html/', restaurant_id=restaurant_id, menu_id=menu_id, item=itemToDelete)
-    return render_template('item/deleteItem.html/')
+    #return render_template('item/deleteItem.html/', restaurant_id=restaurant_id, menu_id=menu_id, item=itemToDelete)
+    return render_template('item/deleteItem.html/', restaurant_id=restaurant_id, menu_id=menu_id, item=item)
 
 
 if __name__ == '__main__':
