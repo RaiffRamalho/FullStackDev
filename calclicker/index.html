@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="jquery-3.3.1.min.js"></script>
+  
+  <title>Document</title>
+</head>
+<body>
+  <div>
+    <h3 id="catname"> chewe</h3>
+    <img id="imagecat" src="images/cat1.jpg" style="width: 300px; height: 300px;">
+    <p>number of clicks: </p>
+    <p id="clicks"> 0</p>
+
+
+  </div>
+  <script>
+
+    cont = 0;
+    catnumber = 1;
+    $( "#imagecat" ).click(function() {
+      catnumber ++;
+      if(catnumber == 6 ) catnumber = 1;
+      cont++;
+      document.getElementById("clicks").innerHTML = cont;
+        document.getElementById("catname").innerHTML = catnumber;
+        $("#imagecat").attr("src","images/cat"+catnumber+".jpg");
+
+    });
+  </script>
+  
+</body>
+</html>
