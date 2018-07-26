@@ -2,28 +2,102 @@
 
 var Marker = function(data) {
 
-  this.title =  ko.observable(data.title);
-  this.location = ko.observable(data.location);
+  this.title =  data.title;
+  this.location = data.location;
   
 }
 
 
-var ViewModel = function() {
-  // Create a new blank array for all the listing markers.
-  this.markers = ko.observableArray([]);
+var ViewModel = function(map, bounds, largeInfowindow) {
+
+  self = this;
+
+  self.titleFilter = ko.observable("");
+
+  self.locations = ko.observableArray([]);
+  self.markers = [];
+
+  self.map = map;
+  self.bounds = bounds;
+  self.largeInfowindow = largeInfowindow;
+  
+  self.updateMarkers = function (arrayData){
+
+    // The following group uses the location array to create an array of markers on initialize.
+    for (var i = 0; i < arrayData.length; i++) {
+      // Get the position from the location array.
+      var position = arrayData[i].location;
+      var title = arrayData[i].title;
+      // Create a marker per location, and put into markers array.
+      var marker = new google.maps.Marker({
+        map: this.map,
+        position: position,
+        title: title,
+        animation: google.maps.Animation.DROP,
+        id: i
+      });
+      // Push the marker to our array of markers.
+      self.locations.push(marker);       
+      // Create an onclick event to open an infowindow at each marker.
+      marker.addListener('click', function() {
+        populateInfoWindow(this, self.largeInfowindow);
+      });
+      this.bounds.extend(self.locations()[i].position);
+    }
+  }
+
+
+  self.showMarkerInfo = function(data) {
+    populateInfoWindow(data, self.largeInfowindow)
+  }
+
+
+  // everytime query/placeList changes, this gets computed again
+  self.filteredPlaces = ko.computed(function() {
+    if (!self.titleFilter()) {
+      for (let index = 0; index < self.locations().length; index++) {
+        self.locations()[index].setMap(map);
+      }
+      return self.locations();
+    } else {
+
+      return self.locations()
+        .filter(function(location) {
+          var boolTit = location.title.toUpperCase().indexOf(self.titleFilter().toUpperCase()) > -1;
+          if (boolTit) {
+            location.setMap(map);
+          } else {
+            location.setMap(null);
+          }
+
+          return boolTit});
+    }
+  });
+
+
+
+
+
+
+
 }
 
 
 function initMap() {
 
-  controller = new ViewModel();
   var map;
+  //info to put on markers
+  var largeInfowindow = new google.maps.InfoWindow();
+  //bound markers on map
+  var bounds = new google.maps.LatLngBounds();
+
   // Constructor creates a new map - only center and zoom are required.
   map = new google.maps.Map(document.getElementById('map'), {
     center: {lat: -7.229424, lng:  -35.898343},
     zoom: 14
   });
 
+  //defatult data to load
   var locations = [
     new Marker({title: 'Lanchonete mia', location: {lat: -7.232765, lng:  -35.903655}}),
     new Marker({title: 'Lanchonete do elano', location: {lat: -7.223078, lng: -35.906854}}),
@@ -32,33 +106,12 @@ function initMap() {
     new Marker({title: 'Realeza pizza', location: {lat: -7.232404, lng: -35.886155}}),
     new Marker({title: 'Pizzaria do danda', location: {lat: -7.240748, lng: -35.900961}}),
   ];
-  
-  var largeInfowindow = new google.maps.InfoWindow();
-  var bounds = new google.maps.LatLngBounds();
-  
-  // The following group uses the location array to create an array of markers on initialize.
-  for (var i = 0; i < locations.length; i++) {
-    // Get the position from the location array.
-    var position = locations[i].location();
-    var title = locations[i].title();
-    // Create a marker per location, and put into markers array.
-    var marker = new google.maps.Marker({
-      map: map,
-      position: position,
-      title: title,
-      animation: google.maps.Animation.DROP,
-      id: i
-    });
-    // Push the marker to our array of markers.
-    controller.markers.push(marker);
-    // Create an onclick event to open an infowindow at each marker.
-    marker.addListener('click', function() {
-      populateInfoWindow(this, largeInfowindow);
-    });
-    bounds.extend(controller.markers()[i].position);
-  }
+
+  controller = new ViewModel(map, bounds, largeInfowindow);
+  controller.updateMarkers(locations);
+  ko.applyBindings(controller);
   // Extend the boundaries of the map for each marker
-  map.fitBounds(bounds);
+  map.fitBounds(controller.bounds);
 }
 
 
@@ -80,4 +133,3 @@ function populateInfoWindow(marker, infowindow) {
   }
 }
 
-ko.applyBindings(new ViewModel());

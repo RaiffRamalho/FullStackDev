@@ -8,19 +8,17 @@
   <title>Document</title>
 </head>
 <body>
+    
   <div class="container">
+    
     <div class="options-box">
-      <h1>Find Your New NYC Home</h1>
+      <h1>Type a place</h1>
       <div>
-        <input id="show-listings" type="button" value="Show Listings">
-        <input id="hide-listings" type="button" value="Hide Listings">
+        <input id="zoom-to-area-text" type="text" placeholder="Enter your favorite area!" 
+        data-bind="text: $data.title, value: titleFilter, valueUpdate: 'keyup'">
       </div>
-      <div>
-        <input id="zoom-to-area-text" type="text" placeholder="Enter your favorite area!">
-        <input id="zoom-to-area" type="button" value="Zoom">
-      </div>
-      <ul class="people-list" data-bind="foreach: markers">
-        <li data-bind="text: title"></li>
+      <ul data-bind="foreach: filteredPlaces">
+        <li data-bind="text: $data.title, click: $parent.showMarkerInfo"></li>
       </ul>
     </div>
     <div id="map"></div>
