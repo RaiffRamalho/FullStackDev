@@ -7,32 +7,23 @@
   <link rel="stylesheet" type="text/css" href="css/style.css">
   <script src="js/lib/jquery-3.3.1.min.js"></script>
 
-  <title>Document</title>
+  <title>Neighborhood Map</title>
 </head>
 <body>
   
   <div class="container">
     <div id="mySidenav" class="sidenav">
+        <h3>Type a place</h3>
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <input id="zoom-to-area-text" type="text" placeholder="Enter your favorite area!" 
+        <input id="zoom-to-area-text" type="text" placeholder="Enter your favorite Food!" 
         data-bind="text: $data.title, value: titleFilter, valueUpdate: 'keyup'">
         <ul data-bind="foreach: filteredPlaces">
             <li data-bind="text: $data.title, click: $parent.showMarkerInfo"></li>
         </ul>
+        
       </div>
-
-      <span style="font-size:2.5em;cursor:pointer" onclick="openNav()">&#9776; </span>
+      <span style="font-size:2.5em;cursor:pointer; margin-left: 0.5em;" onclick="openNav()">&#9776; </span>
     
-    <!-- <div class="options-box">
-      <h1>Type a place</h1>
-      <div>
-        <input id="zoom-to-area-text" type="text" placeholder="Enter your favorite area!" 
-        data-bind="text: $data.title, value: titleFilter, valueUpdate: 'keyup'">
-      </div>
-      <ul data-bind="foreach: filteredPlaces">
-        <li data-bind="text: $data.title, click: $parent.showMarkerInfo"></li>
-      </ul>
-    </div> -->
     <div id="map"></div>
   </div>
 

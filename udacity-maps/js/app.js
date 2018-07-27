@@ -1,12 +1,9 @@
-
-
 var Marker = function(data) {
 
   this.title =  data.title;
   this.location = data.location;
   
 }
-
 
 var ViewModel = function(map, bounds, largeInfowindow) {
 
@@ -90,9 +87,7 @@ var ViewModel = function(map, bounds, largeInfowindow) {
     }
   });
 
-
 }
-
 
 function initMap() {
 
@@ -105,17 +100,17 @@ function initMap() {
   // Constructor creates a new map - only center and zoom are required.
   map = new google.maps.Map(document.getElementById('map'), {
     center: {lat: -7.229424, lng:  -35.898343},
-    zoom: 14
+    zoom: 13
   });
 
   //defatult data to load
   var locations = [
-    new Marker({title: 'Lanchonete mia', location: {lat: -7.232765, lng:  -35.903655}}),
-    new Marker({title: 'Lanchonete do elano', location: {lat: -7.223078, lng: -35.906854}}),
-    new Marker({title: 'Panquecaria da liberdade', location: {lat: -7.235501, lng: -35.893141}}),
-    new Marker({title: 'Forno de pizza', location: {lat: -7.227508, lng: -35.891262}}),
-    new Marker({title: 'Realeza pizza', location: {lat: -7.232404, lng: -35.886155}}),
-    new Marker({title: 'Pizzaria do danda', location: {lat: -7.240748, lng: -35.900961}}),
+    new Marker({title: 'Mia"s Snack bar', location: {lat: -7.232765, lng:  -35.903655}}),
+    new Marker({title: 'Japanese food', location: {lat: -7.221309, lng: -35.896119}}),
+    new Marker({title: 'Pancakes food', location: {lat: -7.235501, lng: -35.893141}}),
+    new Marker({title: 'Forno"s" pizza', location: {lat: -7.227508, lng: -35.891262}}),
+    new Marker({title: 'Real"s pizza', location: {lat: -7.232404, lng: -35.886155}}),
+    new Marker({title: 'Danda"s pizza', location: {lat: -7.240748, lng: -35.900961}}),
   ];
 
   controller = new ViewModel(map, bounds, largeInfowindow);
@@ -123,9 +118,7 @@ function initMap() {
   ko.applyBindings(controller);
   // Extend the boundaries of the map for each marker
   map.fitBounds(controller.bounds);
-
   	
-  // $( ".map" ).append( "<span style='font-size:30px;cursor:pointer' onclick='openNav()'>&#9776; open</span>" );
 }
 
 // This function takes in a COLOR, and then creates a new marker
@@ -142,21 +135,12 @@ function makeMarkerIcon(markerColor) {
   return markerImage;
 }
 
-
-
 // This function populates the infowindow when the marker is clicked. We'll only allow
 // one infowindow which will open at the marker that is clicked, and populate based
 // on that markers position.
 function populateInfoWindow(marker, infowindow) {
   // Check to make sure the infowindow is not already opened on this marker.
   if (infowindow.marker != marker) {
-    // infowindow.marker = marker;
-    // infowindow.setContent('<div>' + marker.title + '</div>');
-    // infowindow.open(map, marker);
-    // // Make sure the marker property is cleared if the infowindow is closed.
-    // infowindow.addListener('closeclick',function(){
-    //   infowindow.setMarker = null;
-    // });
 
     infowindow.setContent('');
     infowindow.marker = marker;
