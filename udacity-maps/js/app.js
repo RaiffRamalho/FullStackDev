@@ -89,6 +89,11 @@ var ViewModel = function(map, bounds, largeInfowindow) {
 
 }
 
+function gm_authFailure() { 
+  alert("The API key included in the script element that loads the API is not found. Please make sure you are using a correct API key. You can generate a new API key on the Google Cloud Platform Console.");
+};
+
+
 function initMap() {
 
   var map;
