@@ -44,7 +44,7 @@ var ViewModel = function(map, bounds, largeInfowindow) {
       self.locations.push(marker);       
       // Create an onclick event to open an infowindow at each marker.
       marker.addListener('click', function() {
-        populateInfoWindow(this, self.largeInfowindow);
+        self.showMarkerInfo(this);
       });
       marker.setIcon(defaultIcon);
       // Two event listeners - one for mouseover, one for mouseout,
@@ -61,7 +61,14 @@ var ViewModel = function(map, bounds, largeInfowindow) {
 
 
   self.showMarkerInfo = function(data) {
-    populateInfoWindow(data, self.largeInfowindow)
+    getFoursquareInfor(data.position.lat(),data.position.lng()).then( function(data2){
+      console.log(data2);
+      populateInfoWindow(data, self.largeInfowindow, data2.response.venues[0])
+    },function (error) {
+      alert(error)
+    }
+    );
+    // populateInfoWindow(data, self.largeInfowindow)
   }
 
 
@@ -87,6 +94,20 @@ var ViewModel = function(map, bounds, largeInfowindow) {
     }
   });
 
+}
+
+function getFoursquareInfor(lat,lng) {
+  var dfd  = $.Deferred();
+  var clientId = "EIJ4K0VEOFOHYBXZDRFXRFZGLQ0A1F5RVXALELOTBGWFJOCG";
+  var clientSecret = "GVZHVD1YV3WI1ZN3GOADFZAP0FPZPHXJQTKZMGSOPCDXY0VK";
+  var latlon = lat +","+lng;
+  var url = "https://api.foursquare.com/v2/venues/search?limit=1&client_id="+clientId+"&client_secret="
+  +clientSecret+"&v=20130609&ll="+latlon;
+  return $.getJSON( url, function(data) {
+    dfd.resolve(data);
+  },function(error){
+    dfd.reject(error);
+  });
 }
 
 function gm_authFailure() { 
@@ -143,7 +164,7 @@ function makeMarkerIcon(markerColor) {
 // This function populates the infowindow when the marker is clicked. We'll only allow
 // one infowindow which will open at the marker that is clicked, and populate based
 // on that markers position.
-function populateInfoWindow(marker, infowindow) {
+function populateInfoWindow(marker, infowindow, foursquareData) {
   // Check to make sure the infowindow is not already opened on this marker.
   if (infowindow.marker != marker) {
 
@@ -163,7 +184,16 @@ function populateInfoWindow(marker, infowindow) {
         var nearStreetViewLocation = data.location.latLng;
         var heading = google.maps.geometry.spherical.computeHeading(
           nearStreetViewLocation, marker.position);
-          infowindow.setContent('<div>' + marker.title + '</div><div id="pano"></div>');
+          var foursquareInfo;
+          if(foursquareData){
+            foursquareInfo = '<hr><div> Visitors: '+ foursquareData.stats.visitsCount +'<br> Here Now'+ foursquareData.hereNow.count+'</div>' ;
+          }
+          else{
+            foursquareInfo = '<hr><div> There is no info from FourSquare</div>';
+          }
+          infowindow.setContent(
+            '<div>' + marker.title + '</div><div id="pano"></div>' + foursquareInfo+''
+          );
           var panoramaOptions = {
             position: nearStreetViewLocation,
             pov: {
@@ -175,7 +205,7 @@ function populateInfoWindow(marker, infowindow) {
           document.getElementById('pano'), panoramaOptions);
       } else {
         infowindow.setContent('<div>' + marker.title + '</div>' +
-          '<div>No Street View Found</div>');
+          '<div id="pano">No Street View Found</div>');
       }
     }
     // Use streetview service to get the closest streetview image within

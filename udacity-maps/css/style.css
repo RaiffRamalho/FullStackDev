@@ -119,10 +119,29 @@ hr {
   margin-left: 50px;
 }
 
-@media screen and (max-height: 450px) {
+#menuHamb{
+  font-size:2.5em;
+  cursor:pointer;
+  margin-left: 0.5em;
+}
+
+@media screen and (max-height: 500px), screen  and (max-width: 450px){
 .sidenav {padding-top: 15px;}
 .sidenav a {font-size: 18px;}
-#map {
-  left: 10%;
+
+#menuHamb{
+  font-size:2.5em;
+  margin-left: 0.1em;
 }
+
+#map {
+  left: 15%;
+}
+
+#pano {
+  width: 100px;
+  height: 100px;
+}
+
+
 }
