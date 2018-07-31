@@ -62,10 +62,9 @@ var ViewModel = function(map, bounds, largeInfowindow) {
 
   self.showMarkerInfo = function(data) {
     getFoursquareInfor(data.position.lat(),data.position.lng()).then( function(data2){
-      console.log(data2);
       populateInfoWindow(data, self.largeInfowindow, data2.response.venues[0])
     },function (error) {
-      alert(error)
+      alert(error.responseJSON.meta.errorDetail)
     }
     );
     // populateInfoWindow(data, self.largeInfowindow)
@@ -111,7 +110,7 @@ function getFoursquareInfor(lat,lng) {
 }
 
 function gm_authFailure() { 
-  alert("The API key included in the script element that loads the API is not found. Please make sure you are using a correct API key. You can generate a new API key on the Google Cloud Platform Console.");
+  alert("An error while loading Google Maps occurred, please try to reload the page. The API key included in the script element that loads the API is not found. Please make sure you are using a correct API key. You can generate a new API key on the Google Cloud Platform Console.");
 };
 
 
