@@ -1,36 +1,66 @@
-## Built With
 
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
+# Linux Server Configuration
 
-### And coding style tests
+This is the final project of the Udacity course:  Full Stack Web Developer
 
-Explain what these tests test and why
+
+## Information Details:
+* URL for access - http://ec2-35-182-221-65.ca-central-1.compute.amazonaws.com
+* Local IP Address - http://35.182.221.65
+* SSH port- 2200
+* Login with : ssh grader@35.182.221.65 -p 2200 -i ~/.ssh/grader
+* Password: grader
+
+### Software installed
+Web server has been configured to serve the Item Catalog application as a WSGI app
+
+
+### Configurations made
+* Created a new user named grader
+* Give grade user sudo permition
+* Update all currently installed packages
+* Changed the SSH port from 22 to 2200
+* Generated key-pair with ssh-keygen for grade user
+* Configured the Uncomplicated Firewall (UFW) to only allow incoming connections for SSH (port 2200), HTTP (port 80), and NTP (port 123)
+* Configured the local timezone to UTC
+* Installed and configure Apache to serve a Python mod_wsgi application
+* Install Git
+* Deploy Flask Application
+* Install Postgresql
+
+### Third-party resources
+* Sudo instalations (sudo apt-get install)
+```
+update
+upgrade
+apache2
+libapache2-mod-wsgi
+git
+python-pip
+python-psycopg2
+postgresql postgresql-contrib
 
 ```
-Give an example
+
+* Pip instalations (sudo pip install)
+```
+Flask
+httplib2
+requests
+--upgrade oauth2client
+sqlalchemy
+Flask-SQLAlchemy
+flask-seasurf
+
 ```
 
+## Run linux server
 
-## Step-1 : Development Environment Information Details:-
-* Public IP Address - 35.182.221.65
-* Private Key - Can't be shared
-
-
-## Step-2 :  uso da chave privada
-* download da private key do amazon light sail
-* copiar para a pasta ./ssh
-* login via terminal 
-* ssh -i ~/.ssh/LightsailDefaultPrivateKey-ca-central-1.pem ubuntu@35.182.221.65
-
-
-## Step-3 : Create a new user named grader
-* sudo adduser grader
-* To check the User(grader) information :
-
-sudo apt-get install finger
-finger grader
-
-## Step-4 : Give the grader the permission to sudo
-
-## Step-3 : login grader
-ssh grader@35.182.221.65 -p 2200 -i ~/.ssh/grader
+After login in the machine via ssh, go to the catalog foler
+```
+cd /var/www/catalog/catalog/
+```
+Run the following command
+```
+python __init__.py
+```
